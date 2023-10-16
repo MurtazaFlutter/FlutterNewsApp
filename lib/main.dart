@@ -1,8 +1,9 @@
-import 'package:flutter/material.dart';
-import 'package:news_app/pages/home_page.dart';
+import 'utils/exports.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(MultiProvider(providers: [
+    ChangeNotifierProvider(create: (context) => NewsController()),
+  ], child: const MyApp()));
 }
 
 class MyApp extends StatelessWidget {
