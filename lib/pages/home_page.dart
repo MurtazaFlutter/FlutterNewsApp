@@ -1,3 +1,4 @@
+import 'package:news_app/service/news_service.dart';
 import 'package:news_app/widgets/trending_news.dart';
 
 import '../utils/exports.dart';
@@ -10,6 +11,12 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  @override
+  void initState() {
+    NewsService().fetchNews();
+    super.initState();
+  }
+
   static final List<Map<String, dynamic>> categories = [
     {'title': 'Buildings', 'images': 'assets/images/building.jpg'},
     {'title': 'Business', 'images': 'assets/images/business.jpg'},
@@ -132,6 +139,26 @@ class _HomePageState extends State<HomePage> {
                 );
               }),
               const Gap(30),
+              const Padding(
+                padding: EdgeInsets.symmetric(horizontal: 10),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      "Trending News!",
+                      style:
+                          TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                    ),
+                    Text(
+                      "View All",
+                      style: TextStyle(
+                          color: Colors.blue,
+                          fontSize: 16,
+                          fontWeight: FontWeight.bold),
+                    )
+                  ],
+                ),
+              ),
               ListView.builder(
                   physics: const NeverScrollableScrollPhysics(),
                   shrinkWrap: true,
