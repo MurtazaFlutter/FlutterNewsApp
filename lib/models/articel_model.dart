@@ -1,4 +1,6 @@
-class ArticleModel {
+import 'package:news_app/utils/exports.dart';
+
+class ArticleModel extends ChangeNotifier {
   String? author;
   String? title;
   String? url;
@@ -16,11 +18,11 @@ class ArticleModel {
 
   factory ArticleModel.fromJson(Map<String, dynamic> json) {
     return ArticleModel(
-        author: json['auther'],
-        title: json['title'],
-        url: json['url'],
-        urlToImage: json['urlToImage'],
-        content: json['content'],
-        description: json['description']);
+        author: json['author'] ?? '',
+        title: json['title'] ?? '',
+        url: json['url'] ?? '',
+        urlToImage: json['urlToImage'] ?? '',
+        content: json['content'] ?? '',
+        description: json['description'] ?? '');
   }
 }

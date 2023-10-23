@@ -11,9 +11,10 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  late Future<List<ArticleModel>> data;
   @override
   void initState() {
-    NewsService().fetchNews();
+    data = NewsService().fetchNews();
     super.initState();
   }
 
@@ -159,12 +160,27 @@ class _HomePageState extends State<HomePage> {
                   ],
                 ),
               ),
-              ListView.builder(
-                  physics: const NeverScrollableScrollPhysics(),
-                  shrinkWrap: true,
-                  itemCount: 10,
-                  itemBuilder: (context, index) {
-                    return const TrendingNews();
+              FutureBuilder<List<ArticleModel>>(
+                  future: data,
+                  builder: (context, snapshot) {
+                    if (snapshot.connectionState == ConnectionState.waiting) {
+                      return const CircularProgressIndicator();
+                    } else if (snapshot.data!.isEmpty) {
+                      return const Text("no data");
+                    } else {
+                      final d = snapshot.data;
+                      return ListView.builder(
+                          physics: const NeverScrollableScrollPhysics(),
+                          shrinkWrap: true,
+                          itemCount: d!.length,
+                          itemBuilder: (context, index) {
+                            final ge = d[index];
+                            return ChangeNotifierProvider.value(
+                              value: ge,
+                              child: const TrendingNews(),
+                            );
+                          });
+                    }
                   })
             ],
           ),

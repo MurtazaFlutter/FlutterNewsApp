@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import '../utils/exports.dart';
 
 class TrendingNews extends StatelessWidget {
@@ -7,7 +8,10 @@ class TrendingNews extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final newsData = Provider.of<ArticleModel>(context, listen: false);
     return Column(
+      mainAxisAlignment: MainAxisAlignment.start,
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         const Gap(10),
         Padding(
@@ -21,14 +25,12 @@ class TrendingNews extends StatelessWidget {
                 children: [
                   SizedBox(
                     child: ClipRRect(
-                      borderRadius: BorderRadius.circular(10),
-                      child: Image.asset(
-                        "assets/images/science.jpg",
-                        height: 120,
-                        width: 120,
-                        fit: BoxFit.cover,
-                      ),
-                    ),
+                        borderRadius: BorderRadius.circular(10),
+                        child: CachedNetworkImage(
+                            height: 120,
+                            width: 120,
+                            fit: BoxFit.cover,
+                            imageUrl: newsData.urlToImage.toString())),
                   ),
                   const Gap(5),
                   Column(
@@ -37,17 +39,17 @@ class TrendingNews extends StatelessWidget {
                     children: [
                       SizedBox(
                         width: MediaQuery.of(context).size.width / 1.7,
-                        child: const Text(
-                          " Here is the trending news sections where you can find more news too",
-                          style: TextStyle(
+                        child: Text(
+                          newsData.title.toString(),
+                          style: const TextStyle(
                               fontSize: 18, fontWeight: FontWeight.bold),
                         ),
                       ),
                       SizedBox(
                         width: MediaQuery.of(context).size.width / 1.7,
-                        child: const Text(
-                          " here is the trending news sections",
-                          style: TextStyle(
+                        child: Text(
+                          newsData.description.toString(),
+                          style: const TextStyle(
                               fontSize: 18,
                               fontWeight: FontWeight.bold,
                               color: Colors.black54),

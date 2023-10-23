@@ -1,19 +1,27 @@
-import 'dart:convert';
+import '../utils/exports.dart';
 import 'package:http/http.dart' as http;
-import 'package:news_app/models/articel_model.dart';
-import 'package:news_app/utils/utils.dart';
 
 class NewsService {
   Future<List<ArticleModel>> fetchNews() async {
-    final response = await http.get(Uri.parse(apiUrl));
+    try {
+      final response = await http.get(Uri.parse(apiUrl));
 
-    if (response.statusCode == 200) {
-      Map<String, dynamic> jsonData = json.decode(response.body);
-      List<dynamic> articles = jsonData['articles'];
+      debugPrint("news data ${response.body}");
 
-      return articles.map((article) => ArticleModel.fromJson(article)).toList();
-    } else {
-      throw Exception("Failed to load news");
+      if (response.statusCode == 200) {
+        Map<String, dynamic> jsonData = json.decode(response.body);
+        List<dynamic> articles = jsonData['articles'];
+
+        return articles
+            .map((article) => ArticleModel.fromJson(article))
+            .toList();
+      } else {
+        throw Exception("Failed to load news");
+      }
+    } on SocketException {
+      throw Exception("Please check your internet connection");
+    } catch (e) {
+      throw Exception("Failed to fetch news: $e");
     }
   }
 }

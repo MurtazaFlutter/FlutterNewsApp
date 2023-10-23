@@ -5,6 +5,10 @@ export 'package:news_app/controllers/news_controller.dart';
 export 'package:news_app/pages/home_page.dart';
 export 'package:provider/provider.dart';
 export 'package:smooth_page_indicator/smooth_page_indicator.dart';
-
+export 'dart:convert';
+export 'dart:io';
+export 'package:news_app/models/articel_model.dart';
+export 'package:news_app/utils/exports.dart';
+export 'package:news_app/utils/utils.dart';
 export '../widgets/breaking_news_slider.dart';
 export '../widgets/categories_tile.dart';
