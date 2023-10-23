@@ -1,3 +1,5 @@
+import 'package:news_app/pages/lending_page.dart';
+
 import 'utils/exports.dart';
 
 void main() {
@@ -19,7 +21,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: const HomePage(),
+      home: const LandingPage(),
     );
   }
 }
